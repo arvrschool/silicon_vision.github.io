@@ -12,12 +12,39 @@
             --primary-color: #007aff;
             --bg-light: #f5f7f9;
             --border-color: #e5e9f0;
+            --header-height: 60px;
         }
         body, html { margin: 0; padding: 0; height: 100%; font-family: -apple-system, system-ui, sans-serif; overflow: hidden; }
+        
+        /* Mobile Header */
+        .mobile-header { 
+            display: none; 
+            height: var(--header-height); 
+            background: #fff; 
+            border-bottom: 1px solid var(--border-color);
+            align-items: center;
+            padding: 0 15px;
+            justify-content: space-between;
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+        }
+        .menu-toggle {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
         .container { display: flex; height: 100vh; width: 100vw; }
+        
         .sidebar { 
             width: var(--sidebar-width); background: #ffffff; border-right: 1px solid var(--border-color);
-            display: flex; flex-direction: column; flex-shrink: 0; z-index: 10;
+            display: flex; flex-direction: column; flex-shrink: 0; z-index: 200;
+            transition: transform 0.3s ease;
         }
         .sidebar-header { padding: 20px; border-bottom: 1px solid var(--border-color); background: #fff; }
         .logo { font-weight: 800; font-size: 18px; color: var(--primary-color); display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
@@ -32,16 +59,43 @@
         .date-btn.active { background: var(--primary-color); color: white; border-color: var(--primary-color); box-shadow: 0 4px 12px rgba(0,122,255,0.3); }
         .btn-icon { margin-right: 10px; font-size: 16px; }
         .btn-text { font-weight: 600; }
+        
         .main-content { flex: 1; position: relative; background: #fff; }
         .content-frame { width: 100%; height: 100%; border: none; }
         .sidebar-footer { padding: 15px; border-top: 1px solid var(--border-color); font-size: 11px; color: #bbb; text-align: center; }
+        
+        /* Overlay for Mobile */
+        .sidebar-overlay {
+            display: none;
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5); z-index: 150;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 768px) {
+            .mobile-header { display: flex; }
+            .sidebar { 
+                position: fixed; top: 0; left: 0; bottom: 0; 
+                transform: translateX(-100%); 
+            }
+            .sidebar.open { transform: translateX(0); }
+            .sidebar-overlay.open { display: block; }
+            .main-content { padding-top: var(--header-height); height: calc(100vh - var(--header-height)); }
+        }
+
         .history-list::-webkit-scrollbar { width: 6px; }
         .history-list::-webkit-scrollbar-thumb { background: #d1d9e6; border-radius: 10px; }
     </style>
 </head>
 <body>
+    <div class="mobile-header">
+        <div class="logo" style="margin-bottom: 0;">🌐 SV</div>
+        <button class="menu-toggle" onclick="toggleSidebar()">☰ 目录</button>
+    </div>
+    <div id="overlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
+    
     <div class="container">
-        <div class="sidebar">
+        <div id="sidebar" class="sidebar">
             <div class="sidebar-header">
                 <div class="logo">
                     <span style="font-size: 24px;">🌐</span> 
@@ -66,6 +120,11 @@
         </div>
     </div>
     <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('open');
+        }
+
         function loadDaily(file) {
             document.getElementById('daily-frame').src = 'daily/' + file;
             document.querySelectorAll('.date-btn').forEach(btn => {
@@ -75,6 +134,10 @@
                     btn.classList.remove('active');
                 }
             });
+            // Auto close sidebar on mobile after selection
+            if (window.innerWidth <= 768) {
+                toggleSidebar();
+            }
         }
         window.onload = () => {
             const firstFile = '2026-02-21.html';

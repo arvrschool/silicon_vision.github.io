@@ -32,28 +32,12 @@
     </style>
 </head>
 <body>
-    <div class="mobile-header">
-        <div class="logo" style="margin-bottom: 0;">🌐 SV</div>
-        <button class="menu-toggle" onclick="toggleSidebar()">☰ 目录</button>
-    </div>
+    <div class="mobile-header"><div class="logo" style="margin-bottom: 0;">🌐 SV</div><button class="menu-toggle" onclick="toggleSidebar()">☰ 目录</button></div>
     <div id="overlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
     <div class="container">
         <div id="sidebar" class="sidebar">
-            <div class="sidebar-header">
-                <div class="logo"><span style="font-size: 24px;">🌐</span><span>SILICON VISION</span></div>
-                <div class="sidebar-subtitle">AI 科技日报 | 历史存档</div>
-            </div>
-            <div class="history-list">
-      <button onclick="loadDaily('2026-02-22.html')" class="date-btn" data-file="2026-02-22.html">
-        <span class="btn-icon">📄</span>
-        <span class="btn-text">AI 科技精选 | 2026-02-22</span>
-      </button>
-    
-      <button onclick="loadDaily('2026-02-21.html')" class="date-btn" data-file="2026-02-21.html">
-        <span class="btn-icon">📄</span>
-        <span class="btn-text">AI 科技精选 | 2026-02-21</span>
-      </button>
-    </div>
+            <div class="sidebar-header"><div class="logo"><span style="font-size: 24px;">🌐</span><span>SILICON VISION</span></div><div class="sidebar-subtitle">AI 科技日报 | 历史存档</div></div>
+            <div class="history-list"><button onclick="loadDaily('2026-02-22.html')" class="date-btn" data-file="2026-02-22.html"><span class="btn-icon">📄</span><span class="btn-text">AI 科技精选 | 2026-02-22</span></button><button onclick="loadDaily('2026-02-21.html')" class="date-btn" data-file="2026-02-21.html"><span class="btn-icon">📄</span><span class="btn-text">AI 科技精选 | 2026-02-21</span></button></div>
             <div class="sidebar-footer">&copy; 2026 SILICON VISION<br>数据实时读取自 daily/ 目录</div>
         </div>
         <div class="main-content"><iframe id="daily-frame" class="content-frame" src=""></iframe></div>

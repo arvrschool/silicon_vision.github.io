@@ -105,6 +105,11 @@
             </div>
             <div class="history-list">
                 
+      <button onclick="loadDaily('2026-02-22.html')" class="date-btn" data-file="2026-02-22.html">
+        <span class="btn-icon">📄</span>
+        <span class="btn-text">AI 科技精选 | 2026-02-22</span>
+      </button>
+    
       <button onclick="loadDaily('2026-02-21.html')" class="date-btn" data-file="2026-02-21.html">
         <span class="btn-icon">📄</span>
         <span class="btn-text">AI 科技精选 | 2026-02-21</span>
@@ -116,7 +121,7 @@
             </div>
         </div>
         <div class="main-content">
-            <iframe id="daily-frame" class="content-frame" src="daily/2026-02-21.html"></iframe>
+            <iframe id="daily-frame" class="content-frame" src="daily/2026-02-22.html"></iframe>
         </div>
     </div>
     <script>
@@ -140,7 +145,7 @@
             }
         }
         window.onload = () => {
-            const firstFile = '2026-02-21.html';
+            const firstFile = '2026-02-22.html';
             document.querySelectorAll('.date-btn').forEach(btn => {
                 if (btn.getAttribute('data-file') === firstFile) btn.classList.add('active');
             });

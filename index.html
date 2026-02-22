@@ -121,7 +121,7 @@
             </div>
         </div>
         <div class="main-content">
-            <iframe id="daily-frame" class="content-frame" src="daily/2026-02-22.html"></iframe>
+            <iframe id="daily-frame" class="content-frame" src=""></iframe>
         </div>
     </div>
     <script>
@@ -130,8 +130,17 @@
             document.getElementById('overlay').classList.toggle('open');
         }
 
+        // 获取基础路径，适配 GitHub Pages 子目录
+        function getBasePath() {
+            const path = window.location.pathname;
+            return path.substring(0, path.lastIndexOf('/') + 1);
+        }
+
         function loadDaily(file) {
-            document.getElementById('daily-frame').src = 'daily/' + file;
+            const frame = document.getElementById('daily-frame');
+            // 使用相对路径，确保在子目录下也能正确加载
+            frame.src = 'daily/' + file;
+            
             document.querySelectorAll('.date-btn').forEach(btn => {
                 if (btn.getAttribute('data-file') === file) {
                     btn.classList.add('active');
@@ -140,15 +149,13 @@
                 }
             });
             // Auto close sidebar on mobile after selection
-            if (window.innerWidth <= 768) {
+            if (window.innerWidth <= 768 && document.getElementById('sidebar').classList.contains('open')) {
                 toggleSidebar();
             }
         }
         window.onload = () => {
             const firstFile = '2026-02-22.html';
-            document.querySelectorAll('.date-btn').forEach(btn => {
-                if (btn.getAttribute('data-file') === firstFile) btn.classList.add('active');
-            });
+            loadDaily(firstFile); // 统一通过 loadDaily 加载
         };
     </script>
 </body>

@@ -46,7 +46,9 @@
         function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('overlay').classList.toggle('open'); }
         function loadDaily(file) {
             const frame = document.getElementById('daily-frame');
-            frame.src = 'daily/' + file;
+            const currentPath = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+            const targetUrl = currentPath + 'daily/' + file;
+            frame.src = targetUrl;
             document.querySelectorAll('.date-btn').forEach(btn => {
                 if (btn.getAttribute('data-file') === file) { btn.classList.add('active'); } else { btn.classList.remove('active'); }
             });
